@@ -3,7 +3,8 @@
   #rg_name     = "rg_mq"
   #rg_location = "centralindia"
 #}
-
+ 
+ 
 #module "vnet" {
  # depends_on         = [module.rg]
   #source             = "../Child/vnet"
