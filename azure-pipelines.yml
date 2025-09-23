@@ -21,7 +21,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         backendAzureRmUseEntraIdForAuthentication: false
-        backendServiceArm: 'Workload identity MQ'
+        backendServiceArm: 'Workload fed MI'
         backendAzureRmStorageAccountName: 'mqstorage3'
         backendAzureRmContainerName: 'mq123'
         backendAzureRmKey: 'key.tfstate'
@@ -46,7 +46,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         backendAzureRmUseEntraIdForAuthentication: false
-        backendServiceArm: 'Workload identity MQ'
+        backendServiceArm: 'Workload fed MI'
         backendAzureRmStorageAccountName: 'mqstorage3'
         backendAzureRmContainerName: 'mq123'
         backendAzureRmKey: 'key.tfstate'
@@ -55,7 +55,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        environmentServiceNameAzureRM: 'Workload identity MQ'
+        environmentServiceNameAzureRM: 'Workload fed MI'
 
 
 
@@ -78,7 +78,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         backendAzureRmUseEntraIdForAuthentication: false
-        backendServiceArm: 'Workload identity MQ'
+        backendServiceArm: 'Workload fed MI'
         backendAzureRmStorageAccountName: 'mqstorage3'
         backendAzureRmContainerName: 'mq123'
         backendAzureRmKey: 'key.tfstate'
@@ -103,7 +103,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         backendAzureRmUseEntraIdForAuthentication: false
-        backendServiceArm: 'Workload identity MQ'
+        backendServiceArm: 'Workload fed MI'
         backendAzureRmStorageAccountName: 'mqstorage3'
         backendAzureRmContainerName: 'mq123'
         backendAzureRmKey: 'key.tfstate'
@@ -112,11 +112,11 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        environmentServiceNameAzureRM: 'Workload identity MQ'
+        environmentServiceNameAzureRM: 'Workload fed MI'
 
     - task: TerraformTask@5
       displayName: "Terraform apply"
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        environmentServiceNameAzureRM: 'Workload identity MQ'
+        environmentServiceNameAzureRM: 'Workload fed MI'
