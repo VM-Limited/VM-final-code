@@ -32,28 +32,27 @@ stages:
         command: 'validate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
 
-- stage:
-  displayName: stage2
-  jobs:
-  - job: TerraformInitPlan
-    displayName: Job2
-    
-    pool: MQ
-    steps:
-    
-    - task: TerraformTask@5
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
-        backendServiceArm: 'Workload fed MI'
-        backendAzureRmStorageAccountName: 'mqstorage3'
-        backendAzureRmContainerName: 'mq123'
+-  stage:
+   displayName: stage2
+   jobs:
+   - job: TerraformInitPlanStage2
+     displayName: Job2
+     pool: MQ
+     steps:
+      
+      - task: TerraformTask@5
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
+          backendServiceArm: 'Workload fed MI'
+          backendAzureRmStorageAccountName: 'mqstorage3'
+          backendAzureRmContainerName: 'mq123'
+          backendAzureRmKey: 'key.tfstate'   
 
-    - task: TerraformTask@5
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
-        environmentServiceNameAzureRM: 'Workload fed MI'
-    
+      - task: TerraformTask@5
+        inputs:
+          provider: 'azurerm'
+          command: 'plan'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
+          environmentServiceNameAzureRM: 'Workload fed MI'
