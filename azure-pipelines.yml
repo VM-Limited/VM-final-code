@@ -17,7 +17,7 @@ stages:
 - stage:
   displayName: InitValidate
   jobs:
-  - job: TerraformInitPlan
+  - job: TerraformInit
     displayName: Job1
     
     pool: MQ
