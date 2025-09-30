@@ -58,7 +58,7 @@ stages:
           environmentServiceNameAzureRM: 'Workload fed MI'
 
 -  stage:
-   displayName: Scanning
+   displayName: tfsecScanning
    jobs:
    - job: Scanning
      displayName: Scannig
