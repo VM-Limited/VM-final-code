@@ -99,9 +99,18 @@ stages:
      displayName: Apply
      pool: MQ
      steps:
-     - task: TerraformTask@5
-       inputs:
-         provider: 'azurerm'
-         command: 'apply'
-         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
-         environmentServiceNameAzureRM: 'Workload fed MI'
+      - task: TerraformTask@5
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: 'Workload fed MI'
+          backendAzureRmStorageAccountName: 'mqstorage3'
+          backendAzureRmContainerName: 'mq123'
+          backendAzureRmKey: 'key.tfstate'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
+      - task: TerraformTask@5
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
+          environmentServiceNameAzureRM: 'Workload fed MI'
