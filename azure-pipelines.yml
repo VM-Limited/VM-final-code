@@ -4,7 +4,7 @@ pool: MQ
 
 stages:
 - stage:
-  displayName: stage1
+  displayName: InitValidate
   jobs:
   - job: TerraformInitPlan
     displayName: Job1
@@ -33,7 +33,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
 
 -  stage:
-   displayName: stage2
+   displayName: Plan
    jobs:
    - job: TerraformInitPlanStage2
      displayName: Job2
@@ -56,3 +56,12 @@ stages:
           command: 'plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
           environmentServiceNameAzureRM: 'Workload fed MI'
+
+-  stage:
+   displayName: Scanning
+   jobs:
+   - job: Scanning
+     displayName: Scannig
+     pool: MQ
+     steps:
+     
