@@ -69,3 +69,14 @@ stages:
          version: 'v1.26.0'
          dir: '$(System.DefaultWorkingDirectory)/Parent'
 
+-  stage:
+   displayName: ManualValidation
+   jobs:
+   - job: ManualValidation
+     displayName: ManualValidation
+     pool: server
+     steps:
+     - task: ManualValidation@1
+       inputs:
+         notifyUsers: 'mansoor.qureshi05@gmail.com'
+         instructions: 'Please approve'
