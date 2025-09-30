@@ -6,7 +6,7 @@ parameters:
 - name: ScanningRequired
   displayName: Scanning required
   type: string
-  default: 'true'    
+  default: 'false'
   values:
   - 'true'
   - 'false'
