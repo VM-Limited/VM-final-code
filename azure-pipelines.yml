@@ -2,6 +2,17 @@ trigger:
 - none
 pool: MQ
 
+parameters:
+- name: ScanningRequired
+  displayName: Scanning required
+  type: string
+  default: 'true'    
+  values:
+  - 'true'
+  - 'false'
+
+
+
 stages:
 - stage:
   displayName: InitValidate
@@ -59,6 +70,7 @@ stages:
 
 -  stage:
    displayName: tfsecScanning
+   condition: eq('${{ parameters.ScanningRequired }}', 'true')
    jobs:
    - job: Scanning
      displayName: Scannig
