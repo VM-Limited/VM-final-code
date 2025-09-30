@@ -25,43 +25,12 @@ stages:
         backendAzureRmContainerName: 'mq123'
         backendAzureRmKey: 'key.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
-
-
-
+        
     - task: TerraformTask@5
-      displayName: Terraformvalidate
       inputs:
         provider: 'azurerm'
         command: 'validate'
-
-  - job: TerraformValidate
-    displayName: Job2
-    pool: MQ
-    
-    steps:
-
-    - task: TerraformTask@5
-      displayName: Terraforminit
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendAzureRmUseEntraIdForAuthentication: false
-        backendServiceArm: 'Workload fed MI'
-        backendAzureRmStorageAccountName: 'mqstorage3'
-        backendAzureRmContainerName: 'mq123'
-        backendAzureRmKey: 'key.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
-
-
-    - task: TerraformTask@5
-      displayName: Terraformplan
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        environmentServiceNameAzureRM: 'Workload fed MI'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
-
-
 
 - stage:
   displayName: stage2
@@ -71,55 +40,20 @@ stages:
     
     pool: MQ
     steps:
-    - task: TerraformInstaller@1
-      inputs:
-        terraformVersion: 'latest'
-
-    - task: TerraformTask@5
-      displayName: Terraforminit
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendAzureRmUseEntraIdForAuthentication: false
-        backendServiceArm: 'Workload fed MI'
-        backendAzureRmStorageAccountName: 'mqstorage3'
-        backendAzureRmContainerName: 'mq123'
-        backendAzureRmKey: 'key.tfstate'
-
-
-
-    - task: TerraformTask@5
-      displayName: Terraformvalidate
-      inputs:
-        provider: 'azurerm'
-        command: 'validate'
-
-  - job: TerraformValidate
-    displayName: Job2
-    pool: MQ
     
-    steps:
-
     - task: TerraformTask@5
-      displayName: Terraforminit
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendAzureRmUseEntraIdForAuthentication: false
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
         backendServiceArm: 'Workload fed MI'
         backendAzureRmStorageAccountName: 'mqstorage3'
         backendAzureRmContainerName: 'mq123'
-        backendAzureRmKey: 'key.tfstate'
+
     - task: TerraformTask@5
-      displayName: Terraformplan
       inputs:
         provider: 'azurerm'
         command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
         environmentServiceNameAzureRM: 'Workload fed MI'
-
-    - task: TerraformTask@5
-      displayName: "Terraform apply"
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        environmentServiceNameAzureRM: 'Workload fed MI'
+    
