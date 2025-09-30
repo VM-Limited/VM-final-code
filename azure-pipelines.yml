@@ -92,3 +92,16 @@ stages:
        inputs:
          notifyUsers: 'mansoor.qureshi05@gmail.com'
          instructions: 'Please approve'
+-  stage:
+   displayName: Apply
+   jobs:
+   - job: Apply
+     displayName: Apply
+     pool: MQ
+     steps:
+     - task: TerraformTask@5
+       inputs:
+         provider: 'azurerm'
+         command: 'apply'
+         workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
+         environmentServiceNameAzureRM: 'Workload fed MI'
