@@ -76,13 +76,13 @@ module "bastion_subnet" {
 }
 
 module "bastion_host" {
-  depends_on      = [module.public_ip_frontend, module.frontend_subnet]
+  depends_on      = [module.public_ip_bastion, module.bastion_subnet]
   source          = "../Child/Bastionhost"
   name                = "bastion-mq"
   location            = "centralindia"
   resource_group_name = "rg_mq"
-  subnet_id           = module.frontend_subnet.subnet_id
-  public_ip_address_id = module.public_ip_frontend.pip_id
+  subnet_id           = module.bastion_subnet.subnet_id
+  public_ip_address_id = module.public_ip_bastion.pip_id
 }
 
 
