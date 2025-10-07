@@ -15,7 +15,7 @@ parameters:
 
 stages:
 - stage:
-  displayName: InitValidate
+  displayName: PreBuild
   jobs:
   - job: TerraformInit
     displayName: Job1
