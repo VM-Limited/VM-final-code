@@ -68,20 +68,22 @@ stages:
           workingDirectory: '$(System.DefaultWorkingDirectory)/Parent'
           environmentServiceNameAzureRM: 'Workload fed MI'
 
--  stage:
-   displayName: tfsecScanning
-   condition: eq('${{ parameters.ScanningRequired }}', 'true')
-   jobs:
-   - job: Scanning
-     displayName: Scannig
-     pool: MQ
-     steps:
-     - task: tfsec@1
-       inputs:
-         version: 'v1.26.0'
-         dir: '$(System.DefaultWorkingDirectory)/Parent'
-         continueOnError: true
-         
+
+- stage: tfsecScanning
+  displayName: "Terraform Security Scanning"
+  condition: eq('${{ parameters.ScanningRequired }}', 'true')
+  jobs:
+  - job: Scanning
+    displayName: "Scanning"
+    pool: MQ
+      
+    steps:
+    - task: tfsec@1
+      inputs:
+        version: 'v1.26.0'
+        dir: '$(System.DefaultWorkingDirectory)/Parent'
+      continueOnError: true
+
 -  stage:
    displayName: ManualValidation
    jobs:
