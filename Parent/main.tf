@@ -100,23 +100,23 @@ module "backend_virtual_machine" {
 
 }
 
-module "sql_server" {
-   depends_on = [module.Frontend_virtual_machine]
-  source                = "../Child/sqlserver_module"
-sql_server_name       = "sqlserver-mq"
- resource_group_name   = "rg_mq"
-location              = "centralindia"
-admin_login           = "sqlmq"
-admin_password        = "Password1234!"
-}
+#module "sql_server" {
+ #  depends_on = [module.Frontend_virtual_machine]
+  #source                = "../Child/sqlserver_module"
+#sql_server_name       = "sqlserver-mq"
+ #resource_group_name   = "rg_mq"
+#location              = "centralindia"
+#admin_login           = "sqlmq"
+#admin_password        = "Password1234!"
+#}
 
- sql server id is only known once sql server is created. copy from portal sql server json view
+ #sql server id is only known once sql server is created. copy from portal sql server json view
 
-module "sql_database" {
-   depends_on = [module.sql_server]
-  source                = "../Child/sqldatabase_module"
- sql_database_name     = "sqldatabase-mq"
+#module "sql_database" {
+ #  depends_on = [module.sql_server]
+  #source                = "../Child/sqldatabase_module"
+ #sql_database_name     = "sqldatabase-mq"
 
-resource_group_name   = "rg_mq"
-mssql_server_name     = "sqlserver-mq"
-}
+#resource_group_name   = "rg_mq"
+#mssql_server_name     = "sqlserver-mq"
+#}
