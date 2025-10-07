@@ -55,6 +55,39 @@ module "public_ip_backend" {
 
 }
 
+module "public_ip_bastion" {
+
+  source            = "../Child/public_ip"
+  depends_on      = [module.rg]
+  pip_name          = "pip_bastion_mq"
+  rg_name           = "rg_mq"
+  rg_location       = "centralindia"
+  allocation_method = "Static"
+
+}
+
+module "bastion_subnet" {
+  depends_on              = [module.vnet]
+  source                  = "../Child/subnet"
+  subnet_name             = "bastionsubnet_mq"
+  rg_name                 = "rg_mq"
+  vnet_name               = "vnet_mq"
+  address_prefixes = ["10.0.2.0/24"]
+}
+
+module "bastion_host" {
+  depends_on      = [module.public_ip_frontend, module.frontend_subnet]
+  source          = "../Child/Bastionhost"
+  name                = "bastion-mq"
+  location            = "centralindia"
+  resource_group_name = "rg_mq"
+  subnet_id           = module.frontend_subnet.subnet_id
+  public_ip_address_id = module.public_ip_frontend.pip_id
+}
+
+
+
+
 module "Frontend_virtual_machine" {
   depends_on      = [module.frontend_subnet, module.public_ip_frontend]
   source          = "../Child/vm"
