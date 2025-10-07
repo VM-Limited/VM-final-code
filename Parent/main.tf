@@ -81,8 +81,8 @@ module "bastion_host" {
   name                = "bastion-mq"
   location            = "centralindia"
   resource_group_name = "rg_mq"
-  subnet_id           = module.bastion_subnet.subnet_id
-  public_ip_address_id = module.public_ip_bastion.pip_id
+ # subnet_id           = module.bastion_subnet.subnet_id
+ # public_ip_address_id = module.public_ip_bastion.pip_id
   vnet_name           = "vnet_mq"
   rg_name             = "rg_mq" 
   subnet_name        = "bastionsubnet_mq"
