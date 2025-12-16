@@ -1,3 +1,6 @@
+variables:
+- group: SubscriptionID
+
 trigger:
 - none
 pool: MQ
