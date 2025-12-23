@@ -66,29 +66,29 @@ module "public_ip_bastion" {
 
 }
 
-module "bastion_subnet" {
-  depends_on       = [module.vnet]
-  source           = "../Child/subnet"
-  subnet_name      = "bastionsubnet_mq"
-  rg_name          = "rg_mq_vm"
-  vnet_name        = "vnet_mq"
-  address_prefixes = ["10.0.2.0/24"]
-}
+#module "bastion_subnet" {
+#  depends_on       = [module.vnet]
+#  source           = "../Child/subnet"
+#  subnet_name      = "bastionsubnet_mq"
+#  rg_name          = "rg_mq_vm"
+#  vnet_name        = "vnet_mq"
+#  address_prefixes = ["10.0.2.0/24"]
+#}
 
-module "bastion_host" {
-  depends_on          = [module.public_ip_bastion, module.bastion_subnet]
-  source              = "../Child/Bastionhost"
-  name                = "bastion-mq"
-  location            = "centralindia"
-   #subnet_id           = module.bastion_subnet.subnet_id
+#module "bastion_host" {
+#  depends_on          = [module.public_ip_bastion, module.bastion_subnet]
+#  source              = "../Child/Bastionhost"
+#  name                = "bastion-mq"
+#  location            = "centralindia"
+#   #subnet_id           = module.bastion_subnet.subnet_id
   #public_ip_address_id = module.public_ip_bastion.pip_id
-  vnet_name   = "vnet_mq"
-  rg_name     = "rg_mq_vm"
-  subnet_name = "bastionsubnet_mq"
-  pip_name    = "pip_bastion_mq"
-  rg_location = "centralindia"
+  #vnet_name   = "vnet_mq"
+  #rg_name     = "rg_mq_vm"
+  #subnet_name = "bastionsubnet_mq"
+  #pip_name    = "pip_bastion_mq"
+  #rg_location = "centralindia"
 
-}
+#}
 
 
 
@@ -97,6 +97,7 @@ module "Frontend_virtual_machine" {
   source      = "../Child/vm"
   vm_name     = "frontvm-mq"
   rg_name     = "rg_mq_vm"
+  rg_name_kv = "B17_KeyVault"
   rg_location = "centralindia"
   key_vault_name = "B17G30"
   secret_name = "frontendvm-username"
@@ -121,6 +122,7 @@ module "backend_virtual_machine" {
   source      = "../Child/vm"
   vm_name     = "backendvm-mq"
   rg_name     = "rg_mq_vm"
+  rg_name_kv = "B17_KeyVault"
   rg_location = "centralindia"
   key_vault_name = "B17G30"
   secret_name = "backendvm-username"
