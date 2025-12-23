@@ -15,7 +15,7 @@ data azurerm_network_interface nic {
 
 data "azurerm_key_vault" "kv" {
   name                = var.key_vault_name
-  resource_group_name = var.rg_name
+  resource_group_name = var.rg_name_kv
 }
 
 data "azurerm_key_vault_secret" "password" {
