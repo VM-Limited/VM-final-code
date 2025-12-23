@@ -1,6 +1,6 @@
 module "rg" {
   source      = "../Child/resource_group"
-  rg_name     = "rg_mq"
+  rg_name     = "rg_mq_vm"
   rg_location = "centralindia"
 }
 
@@ -9,7 +9,7 @@ module "vnet" {
   source        = "../Child/vnet"
   vnet_name     = "vnet_mq"
   rg_location   = "centralindia"
-  rg_name       = "rg_mq"
+  rg_name       = "rg_mq_vm"
   address_space = ["10.0.0.0/16"]
 }
 
@@ -17,7 +17,7 @@ module "frontend_subnet" {
   depends_on       = [module.vnet]
   source           = "../Child/subnet"
   subnet_name      = "frontendsubnet_mq"
-  rg_name          = "rg_mq"
+  rg_name          = "rg_mq_vm"
   vnet_name        = "vnet_mq"
   address_prefixes = ["10.0.1.0/24"]
 }
@@ -26,7 +26,7 @@ module "backend_subnet" {
   depends_on       = [module.vnet]
   source           = "../Child/subnet"
   subnet_name      = "backendsubnet_mq"
-  rg_name          = "rg_mq"
+  rg_name          = "rg_mq_vm"
   vnet_name        = "vnet_mq"
   address_prefixes = ["10.0.2.0/24"]
 }
@@ -37,7 +37,7 @@ module "public_ip_frontend" {
   source            = "../Child/public_ip"
   depends_on        = [module.rg]
   pip_name          = "pip_frontend_mq"
-  rg_name           = "rg_mq"
+  rg_name           = "rg_mq_vm"
   rg_location       = "centralindia"
   allocation_method = "Static"
 
@@ -49,7 +49,7 @@ module "public_ip_backend" {
   source            = "../Child/public_ip"
   depends_on        = [module.rg]
   pip_name          = "pip_backend_mq"
-  rg_name           = "rg_mq"
+  rg_name           = "rg_mq_vm"
   rg_location       = "centralindia"
   allocation_method = "Static"
 
@@ -60,7 +60,7 @@ module "public_ip_bastion" {
   source            = "../Child/public_ip"
   depends_on        = [module.rg]
   pip_name          = "pip_bastion_mq"
-  rg_name           = "rg_mq"
+  rg_name           = "rg_mq_vm"
   rg_location       = "centralindia"
   allocation_method = "Static"
 
@@ -70,7 +70,7 @@ module "bastion_subnet" {
   depends_on       = [module.vnet]
   source           = "../Child/subnet"
   subnet_name      = "bastionsubnet_mq"
-  rg_name          = "rg_mq"
+  rg_name          = "rg_mq_vm"
   vnet_name        = "vnet_mq"
   address_prefixes = ["10.0.2.0/24"]
 }
@@ -83,7 +83,7 @@ module "bastion_host" {
    #subnet_id           = module.bastion_subnet.subnet_id
   #public_ip_address_id = module.public_ip_bastion.pip_id
   vnet_name   = "vnet_mq"
-  rg_name     = "rg_mq"
+  rg_name     = "rg_mq_vm"
   subnet_name = "bastionsubnet_mq"
   pip_name    = "pip_bastion_mq"
   rg_location = "centralindia"
@@ -96,10 +96,8 @@ module "Frontend_virtual_machine" {
   depends_on  = [module.frontend_subnet, module.public_ip_frontend]
   source      = "../Child/vm"
   vm_name     = "frontvm-mq"
-  rg_name     = "rg_mq"
+  rg_name     = "rg_mq_vm"
   rg_location = "centralindia"
-  # admin_username  = "mansoorvm"
-  # admin_password  = "Password1234!"
   key_vault_name = "B17G30"
   secret_name = "frontendvm-username"
   secret_value = "frontendvm-password"
@@ -122,10 +120,8 @@ module "backend_virtual_machine" {
   depends_on  = [module.backend_subnet, module.public_ip_backend]
   source      = "../Child/vm"
   vm_name     = "backendvm-mq"
-  rg_name     = "rg_mq"
+  rg_name     = "rg_mq_vm"
   rg_location = "centralindia"
-  # admin_username  = "umairvm"
-  # admin_password  = "Password12345!"
   key_vault_name = "B17G30"
   secret_name = "backendvm-username"
   secret_value = "backendvm-password"
@@ -147,7 +143,7 @@ module "backend_virtual_machine" {
 #  depends_on = [module.Frontend_virtual_machine]
 #source                = "../Child/sqlserver_module"
 #sql_server_name       = "sqlserver-mq"
-#rg_name   = "rg_mq"
+#rg_name   = "rg_mq_vm"
 #location              = "centralindia"
 #admin_login           = "sqlmq"
 #admin_password        = "Password1234!"
@@ -160,6 +156,6 @@ module "backend_virtual_machine" {
 #source                = "../Child/sqldatabase_module"
 #sql_database_name     = "sqldatabase-mq"
 
-#rg_name   = "rg_mq"
+#rg_name   = "rg_mq_vm"
 #mssql_server_name     = "sqlserver-mq"
 #}
